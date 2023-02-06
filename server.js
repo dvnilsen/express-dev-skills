@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const methodOverride = require("method-override"); // <-- had to "npm i" this first 
+
 var indexRouter = require('./routes/index');
 var todosRouter = require('./routes/todos');
 
@@ -13,11 +15,24 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Mount middleware into the middleware/request pipeline 
+// * * * APP.USE takes (optional "starts with" path) + a MIDDLEWARE function * * * 
+
+app.use(function(req, res, next) {
+  console.log("Hello SEI!");
+  // Add a time property to res.locals object
+  // time prop will be accessible within templates 
+  res.locals.time = new Date().toLocaleTimeString();
+  next(); 
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// for method-override
+app.use(methodOverride("_method"));
 
 // The first arg is the "starts with" path
 // The paths within the route modules are appended
