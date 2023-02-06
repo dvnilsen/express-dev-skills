@@ -7,7 +7,7 @@ var logger = require('morgan');
 const methodOverride = require("method-override"); // <-- had to "npm i" this first 
 
 var indexRouter = require('./routes/index');
-var todosRouter = require('./routes/todos');
+var skillsRouter = require('./routes/skills');
 
 var app = express();
 
@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 // * * * APP.USE takes (optional "starts with" path) + a MIDDLEWARE function * * * 
 
 app.use(function(req, res, next) {
-  console.log("Hello SEI!");
+  //console.log("Hello SEI!");
   // Add a time property to res.locals object
   // time prop will be accessible within templates 
   res.locals.time = new Date().toLocaleTimeString();
@@ -38,7 +38,7 @@ app.use(methodOverride("_method"));
 // The paths within the route modules are appended
 // to the starts with paths 
 app.use('/', indexRouter);
-app.use('/todos', todosRouter);
+app.use('/skills', skillsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

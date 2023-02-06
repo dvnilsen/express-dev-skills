@@ -1,24 +1,24 @@
 <%- include("../partials/header") %>
 
-<h3>To-Dos as of <%= time %></h3>
+<h3>Skills as of <%= time %></h3>
 
   <ul>
-    <% todos.forEach(function(t) { %>
+    <% skills.forEach(function(s) { %>
       <li>
         <form 
-          action="/todos/<%= t.id %>?_method=DELETE" 
+          action="/skills/<%= s.id %>?_method=DELETE" 
           method="POST"
           class="delete-form"
         > 
           <button type="submit">X</button>
         </form>
-        <a href="/todos/<%= t.id %>"><%= t.todo %></a>
+        <a href="/skills/<%= s.id %>"><%= s.skill %></a>
           - 
-        <%= t.done ? 'done' : 'not done' %>
+        <%= s.learned ? 'learned' : 'not learned' %>
       </li>
     <% }); %>
   </ul>
-  <a href="/todos/new">Add To-Do</a>
+  <a href="/skills/new">Add To-Do</a>
 
 
   <%- include("../partials/footer") %>
